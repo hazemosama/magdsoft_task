@@ -5,7 +5,6 @@ import 'package:magdsoft_task/constants/end_points.dart';
 import 'package:magdsoft_task/data/models/account_model.dart';
 import 'package:magdsoft_task/data/models/regisrer_model.dart';
 import 'package:magdsoft_task/data/remote/dio_helper.dart';
-import 'package:magdsoft_task/data/local/cache_helper.dart';
 import 'package:magdsoft_task/presentation/router/app_router.dart';
 import 'package:magdsoft_task/presentation/screens/authentication/login_screen.dart';
 
@@ -65,15 +64,9 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 
   void signOut(context) {
-    CacheHelper.removeData(key: 'token').then(
-          (value) {
-        if (value) {
-          navigateAndFinish(
-            context,
-            LoginScreen(),
-          );
-        }
-      },
+    navigateAndFinish(
+      context,
+      LoginScreen(),
     );
   }
 

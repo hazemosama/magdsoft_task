@@ -7,6 +7,7 @@ import 'package:magdsoft_task/data/models/account_model.dart';
 import 'package:magdsoft_task/localization/applocale.dart';
 import 'package:magdsoft_task/presentation/styles/colors.dart';
 import 'package:magdsoft_task/presentation/widget/defaultButton.dart';
+import 'package:magdsoft_task/presentation/widget/defaultText.dart';
 
 class UserProfileScreen extends StatelessWidget {
   @override
@@ -16,34 +17,38 @@ class UserProfileScreen extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthStates>(
       builder: (context, state) {
         return Scaffold(
-          body: SafeArea(
+          appBar: AppBar(
+            title: defaultText(
+              text: "${getLang(context, 'User_Data')}",
+              size: 30.0,
+              color: AppColors.white,
+            ),
+            centerTitle: true,
+            elevation: 0.0,
+            backgroundColor: AppColors.defaultColor,
+          ),
+          body: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  width: double.infinity,
-                  height: 67,
-                  color: AppColors.defaultColor,
-                  child: const Center(
-                    child: Text(
-                      "User Data",
-                      style: TextStyle(fontSize: 30, color: Colors.white),
-                    ),
+                ConditionalBuilder(
+                  condition: authCubit.loginModel != null,
+                  builder: (context) => userInfo(authCubit.loginModel!, context),
+                  fallback: (context) => const Center(
+                    child: CircularProgressIndicator(),
                   ),
                 ),
-                ConditionalBuilder(
-                    condition: authCubit.loginModel != null,
-                    builder: (context) =>
-                        userInfo(authCubit.loginModel!,context),
-                    fallback: (context) =>
-                        const Center(child: CircularProgressIndicator())),
                 Center(
                   child: defaultButton(
-                      function: () {
-                        authCubit.signOut(context);
-                      },
-                      text: '${getLang(context, 'Logout')}',
-                      background: const Color(0xffad002f),
-                      fontSize: 20),
+                    function: () {
+                      authCubit.signOut(context);
+                    },
+                    text: '${getLang(context, 'Logout')}',
+                    background: const Color(
+                      0xffad002f,
+                    ),
+                    fontSize: 20,
+                  ),
                 ),
               ],
             ),
@@ -54,54 +59,30 @@ class UserProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget userInfo(AccountModel model,context) => Padding(
-        padding: const EdgeInsetsDirectional.only(top: 211.0, start: 69),
+  Widget userInfo(AccountModel model, context) => Padding(
+        padding: const EdgeInsetsDirectional.only(top: 170.0),
         child: Column(
           children: [
-            Row(
-              children: [
-                Text(
-                  '${getLang(context, 'Name')} :',
-                  style: const TextStyle(fontSize: 25, color: AppColors.defaultColor),
-                ),
-                Text(
-                  ' ${model.account[0].name}',
-                  style: const TextStyle(fontSize: 25, color: AppColors.defaultColor),
-                ),
-              ],
+            defaultText(
+              text: '${getLang(context, 'Name')} : ${model.account[0].name}',
+              size: 25.0,
             ),
             const SizedBox(
               height: 8,
             ),
-            Row(
-              children: [
-                Text(
-                  '${getLang(context, 'Email')} :',
-                  style: const TextStyle(fontSize: 25, color: AppColors.defaultColor),
-                ),
-                Text(
-                  ' ${model.account[0].email}',
-                  style: const TextStyle(fontSize: 25, color: AppColors.defaultColor),
-                ),
-              ],
+            defaultText(
+              text: '${getLang(context, 'Email')} : ${model.account[0].email}',
+              size: 25.0,
             ),
             const SizedBox(
               height: 8,
             ),
-            Row(
-              children: [
-                Text(
-                  '${getLang(context, 'Phone')} :',
-                  style: const TextStyle(fontSize: 25, color: AppColors.defaultColor),
-                ),
-                Text(
-                  ' ${model.account[0].phone}',
-                  style: const TextStyle(fontSize: 25, color: AppColors.defaultColor),
-                ),
-              ],
+            defaultText(
+              text: '${getLang(context, 'Phone')} : ${model.account[0].phone}',
+              size: 25.0,
             ),
             const SizedBox(
-              height: 360,
+              height: 250.0,
             ),
           ],
         ),

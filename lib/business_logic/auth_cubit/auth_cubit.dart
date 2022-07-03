@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:magdsoft_task/business_logic/auth_cubit/auth_states.dart';
 import 'package:magdsoft_task/constants/end_points.dart';
 import 'package:magdsoft_task/data/models/account_model.dart';
+import 'package:magdsoft_task/data/models/regisrer_model.dart';
 import 'package:magdsoft_task/data/remote/dio_helper.dart';
 import 'package:magdsoft_task/data/local/cache_helper.dart';
 import 'package:magdsoft_task/presentation/router/app_router.dart';
@@ -13,7 +14,7 @@ class AuthCubit extends Cubit<AuthStates> {
 
   static AuthCubit get(context) => BlocProvider.of(context);
 
-  AccountModel? registerModel;
+  RegisterModel? registerModel;
 
   void userRegister({
     required String name,
@@ -32,9 +33,10 @@ class AuthCubit extends Cubit<AuthStates> {
         'phone': phone,
       },
     ).then((value) {
-      registerModel = AccountModel.fromJson(value.data);
+      registerModel = RegisterModel.fromJson(value.data);
       emit(RegisterSuccessState());
     }).catchError((error) {
+      print(error.toString());
       emit(RegisterErrorState(error.toString()));
     });
   }

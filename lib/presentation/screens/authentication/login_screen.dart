@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:magdsoft_task/business_logic/auth_cubit/auth_cubit.dart';
 import 'package:magdsoft_task/business_logic/auth_cubit/auth_states.dart';
-import 'package:magdsoft_task/business_logic/global_cubit/global_cubit.dart';
 import 'package:magdsoft_task/localization/applocale.dart';
 import 'package:magdsoft_task/presentation/router/app_router.dart';
 import 'package:magdsoft_task/presentation/screens/authentication/register_screen.dart';
@@ -27,105 +26,85 @@ class LoginScreen extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(
-            toolbarHeight: 0.0,
-            elevation: 0.0,
-          ),
-          body: Stack(
-            children: [
-              design(
-                child: SingleChildScrollView(
-                  child: Form(
-                    key: formKey,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        top: 150,
+          body: design(
+            context,
+            child: SingleChildScrollView(
+              child: Form(
+                key: formKey,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 140,
+                  ),
+                  child: Column(
+                    children: [
+                      defaultFormField(
+                        label: '${getLang(context, "Email")}',
+                        controller: emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        validate: (String? value) {
+                          if (value!.isEmpty) {
+                            return '${getLang(context, "Enter_Email")}';
+                          }
+                        },
+                        prefix: Icons.email_outlined,
                       ),
-                      child: Column(
+                      const SizedBox(
+                        height: 18,
+                      ),
+                      defaultFormField(
+                        controller: passController,
+                        keyboardType: TextInputType.visiblePassword,
+                        validate: (String? value) {
+                          if (value!.isEmpty) {
+                            return '${getLang(context, "Password_Short")}';
+                          }
+                        },
+                        label: '${getLang(context, "Password")}',
+                        prefix: Icons.lock_outline,
+                        suffix: AuthCubit.get(context).suffix,
+                        isPassword: AuthCubit.get(context).isPassword,
+                        suffixPressed: () {
+                          AuthCubit.get(context)
+                              .changePasswordVisibility();
+                        },
+                      ),
+                      const SizedBox(
+                        height: 165,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          defaultFormField(
-                            width: 286.0,
-                            label: '${getLang(context, "Email")}',
-                            controller: emailController,
-                            keyboardType: TextInputType.emailAddress,
-                            validate: (String? value) {
-                              if (value!.isEmpty) {
-                                return '${getLang(context, "Enter_Email")}';
+                          defaultButton(
+                            text: '${getLang(context, "Register")}',
+                            function: () {
+                              navigateTo(
+                                  widget: RegisterScreen(),
+                                  context: context);
+                            },
+                            background: AppColors.defaultColor,
+                          ),
+                          defaultButton(
+                            text: '${getLang(context, "Login")}',
+                            function: () {
+                              if (formKey.currentState!.validate()) {
+                                AuthCubit.get(context).userLogin(
+                                  email: emailController.text,
+                                  password: passController.text,
+                                );
                               }
                             },
-                            prefix: Icons.email_outlined,
+                            background: AppColors.defaultColor,
                           ),
-                          const SizedBox(
-                            height: 18,
-                          ),
-                          defaultFormField(
-                            width: 286.0,
-                            controller: passController,
-                            keyboardType: TextInputType.visiblePassword,
-                            validate: (String? value) {
-                              if (value!.isEmpty) {
-                                return '${getLang(context, "Password_Short")}';
-                              }
-                            },
-                            label: '${getLang(context, "Password")}',
-                            prefix: Icons.lock_outline,
-                            suffix: AuthCubit.get(context).suffix,
-                            isPassword: AuthCubit.get(context).isPassword,
-                            suffixPressed: () {
-                              AuthCubit.get(context).changePasswordVisibility();
-                            },
-                          ),
-                          const SizedBox(
-                            height: 165,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              defaultButton(
-                                text: '${getLang(context, "Register")}',
-                                function: () {
-                                  navigateTo(
-                                      widget: RegisterScreen(),
-                                      context: context);
-                                },
-                                background: AppColors.defaultColor,
-                              ),
-                              defaultButton(
-                                text: '${getLang(context, "Login")}',
-                                function: () {
-                                  if (formKey.currentState!.validate()) {
-                                    AuthCubit.get(context).userLogin(
-                                      email: emailController.text,
-                                      password: passController.text,
-                                    );
-                                  }
-                                },
-                                background: AppColors.defaultColor,
-                              ),
-                            ],
-                          )
                         ],
                       ),
-                    ),
+                      SizedBox(
+                        height: 98.0,
+                      ),
+                    ],
                   ),
                 ),
               ),
-              Positioned(
-                top: 47,
-                right: 21,
-                child: defaultButton(
-                  function: () {
-                    GlobalCubit.get(context).changeAppLang();
-                  },
-                  text: '${getLang(context, 'lang')}',
-                  height: 31,
-                  background: Colors.white,
-                  textColors: AppColors.defaultColor,
-                  fontSize: 15,
-                  width: 84,
-                ),
-              )
-            ],
+            ),
           ),
         );
       },

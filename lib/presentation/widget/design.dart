@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:magdsoft_task/business_logic/global_cubit/global_cubit.dart';
+import 'package:magdsoft_task/localization/applocale.dart';
 import 'package:magdsoft_task/presentation/styles/colors.dart';
+import 'package:magdsoft_task/presentation/widget/defaultButton.dart';
 
-Widget design({
+Widget design(context,{
   required Widget child,
 }) =>
     Stack(
@@ -38,6 +41,21 @@ Widget design({
               ),
             ),
             child: child,
+          ),
+        ),
+        Positioned(
+          top: 49,
+          right: 21,
+          child: defaultButton(
+            function: () {
+              GlobalCubit.get(context).changeAppLang();
+            },
+            text: '${getLang(context, 'lang')}',
+            height: 31,
+            background: Colors.white,
+            textColor: AppColors.defaultColor,
+            fontSize: 15,
+            width: 84,
           ),
         ),
       ],

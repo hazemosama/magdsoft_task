@@ -18,8 +18,8 @@ Widget defaultFormField({
   double? height,
 }) =>
     Container(
-      width: width ?? 350,
-      height: height ?? 55.0,
+      width: width ?? 286,
+      height: height ?? 52.0,
       decoration: BoxDecoration(
         color: AppColors.grey3,
         borderRadius: BorderRadius.circular(
@@ -40,6 +40,7 @@ Widget defaultFormField({
           labelText: label,
           labelStyle: const TextStyle(
             fontSize: 17,
+            color: AppColors.grey2
           ),
           suffixIcon: suffix != null
               ? IconButton(

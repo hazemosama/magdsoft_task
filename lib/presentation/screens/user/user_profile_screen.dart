@@ -65,7 +65,7 @@ class UserProfileScreen extends StatelessWidget {
                   style: const TextStyle(fontSize: 25, color: AppColors.defaultColor),
                 ),
                 Text(
-                  ' ${model.account![0].name}',
+                  ' ${model.account[0].name}',
                   style: const TextStyle(fontSize: 25, color: AppColors.defaultColor),
                 ),
               ],
@@ -80,7 +80,7 @@ class UserProfileScreen extends StatelessWidget {
                   style: const TextStyle(fontSize: 25, color: AppColors.defaultColor),
                 ),
                 Text(
-                  ' ${model.account![0].email}',
+                  ' ${model.account[0].email}',
                   style: const TextStyle(fontSize: 25, color: AppColors.defaultColor),
                 ),
               ],
@@ -95,7 +95,7 @@ class UserProfileScreen extends StatelessWidget {
                   style: const TextStyle(fontSize: 25, color: AppColors.defaultColor),
                 ),
                 Text(
-                  ' ${model.account![0].phone}',
+                  ' ${model.account[0].phone}',
                   style: const TextStyle(fontSize: 25, color: AppColors.defaultColor),
                 ),
               ],

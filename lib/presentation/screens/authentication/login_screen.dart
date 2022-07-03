@@ -11,7 +11,6 @@ import 'package:magdsoft_task/presentation/styles/colors.dart';
 import 'package:magdsoft_task/presentation/widget/defaultButton.dart';
 import 'package:magdsoft_task/presentation/widget/defaultFormField.dart';
 import 'package:magdsoft_task/presentation/widget/design.dart';
-import 'package:magdsoft_task/shared/components/components.dart';
 
 class LoginScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
@@ -31,75 +30,80 @@ class LoginScreen extends StatelessWidget {
           body: Stack(
             children: [
               design(
-                  child: SingleChildScrollView(
-                child: Form(
-                  key: formKey,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 167),
-                    child: Column(
-                      children: [
-                        defaultFormField(
-                          label: '${getLang(context, "Email")}',
-                          controller: emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'please enter your email address';
-                            }
-                          },
-                          prefix: Icons.email_outlined,
-                        ),
-                        const SizedBox(
-                          height: 18,
-                        ),
-                        defaultFormField(
-                          controller: passController,
-                          keyboardType: TextInputType.visiblePassword,
-                          validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'password is too short';
-                            }
-                          },
-                          label: '${getLang(context, "Password")}',
-                          prefix: Icons.lock_outline,
-                          suffix: AuthCubit.get(context).suffix,
-                          isPassword: AuthCubit.get(context).isPassword,
-                          suffixPressed: () {
-                            AuthCubit.get(context).changePasswordVisibility();
-                          },
-                        ),
-                        const SizedBox(
-                          height: 175,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            defaultButton(
-                              text: '${getLang(context, "Login")}',
-                              function: () {
-                                if (formKey.currentState!.validate()) {
-                                  AuthCubit.get(context).userLogin(
-                                    email: emailController.text,
-                                    password: passController.text,
-                                  );
-                                }
-                              },
-                              background: AppColors.defaultColor,
-                            ),
-                            defaultButton(
-                              text: '${getLang(context, "Register")}',
-                              function: () {
-                                navigateTo(widget: RegisterScreen(), context: context);
-                              },
-                              background: AppColors.defaultColor,
-                            )
-                          ],
-                        )
-                      ],
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: formKey,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: 145,
+                      ),
+                      child: Column(
+                        children: [
+                          defaultFormField(
+                            label: '${getLang(context, "Email")}',
+                            controller: emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            validate: (String? value) {
+                              if (value!.isEmpty) {
+                                return 'please enter your email address';
+                              }
+                            },
+                            prefix: Icons.email_outlined,
+                          ),
+                          const SizedBox(
+                            height: 18,
+                          ),
+                          defaultFormField(
+                            controller: passController,
+                            keyboardType: TextInputType.visiblePassword,
+                            validate: (String? value) {
+                              if (value!.isEmpty) {
+                                return 'password is too short';
+                              }
+                            },
+                            label: '${getLang(context, "Password")}',
+                            prefix: Icons.lock_outline,
+                            suffix: AuthCubit.get(context).suffix,
+                            isPassword: AuthCubit.get(context).isPassword,
+                            suffixPressed: () {
+                              AuthCubit.get(context).changePasswordVisibility();
+                            },
+                          ),
+                          const SizedBox(
+                            height: 165,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              defaultButton(
+                                text: '${getLang(context, "Register")}',
+                                function: () {
+                                  navigateTo(
+                                      widget: RegisterScreen(),
+                                      context: context);
+                                },
+                                background: AppColors.defaultColor,
+                              ),
+                              defaultButton(
+                                text: '${getLang(context, "Login")}',
+                                function: () {
+                                  if (formKey.currentState!.validate()) {
+                                    AuthCubit.get(context).userLogin(
+                                      email: emailController.text,
+                                      password: passController.text,
+                                    );
+                                  }
+                                },
+                                background: AppColors.defaultColor,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              )),
+              ),
               Positioned(
                 top: 47,
                 right: 21,

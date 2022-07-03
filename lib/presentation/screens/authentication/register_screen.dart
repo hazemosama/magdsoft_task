@@ -9,7 +9,6 @@ import 'package:magdsoft_task/presentation/styles/colors.dart';
 import 'package:magdsoft_task/presentation/widget/defaultButton.dart';
 import 'package:magdsoft_task/presentation/widget/defaultFormField.dart';
 import 'package:magdsoft_task/presentation/widget/design.dart';
-import 'package:magdsoft_task/shared/components/components.dart';
 
 class RegisterScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();

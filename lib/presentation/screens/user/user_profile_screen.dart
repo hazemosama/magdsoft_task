@@ -7,7 +7,6 @@ import 'package:magdsoft_task/data/models/account_model.dart';
 import 'package:magdsoft_task/localization/applocale.dart';
 import 'package:magdsoft_task/presentation/styles/colors.dart';
 import 'package:magdsoft_task/presentation/widget/defaultButton.dart';
-import 'package:magdsoft_task/shared/components/components.dart';
 
 class UserProfileScreen extends StatelessWidget {
   @override

@@ -14,14 +14,15 @@ Widget design({
         const Positioned(
           left: 123,
           right: 123,
-          top: 13,
+          top: 36,
           child: Image(
-              image: AssetImage(
-                'assets/images/logo.png',
-              )),
+            image: AssetImage(
+              'assets/images/logo.png',
+            ),
+          ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 270),
+          padding: const EdgeInsets.only(top: 195),
           child: Container(
             width: double.infinity,
             height: double.infinity,

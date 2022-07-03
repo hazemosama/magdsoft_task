@@ -27,6 +27,10 @@ class LoginScreen extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
+          appBar: AppBar(
+            toolbarHeight: 0.0,
+            elevation: 0.0,
+          ),
           body: Stack(
             children: [
               design(
@@ -35,17 +39,18 @@ class LoginScreen extends StatelessWidget {
                     key: formKey,
                     child: Padding(
                       padding: const EdgeInsets.only(
-                        top: 145,
+                        top: 150,
                       ),
                       child: Column(
                         children: [
                           defaultFormField(
+                            width: 286.0,
                             label: '${getLang(context, "Email")}',
                             controller: emailController,
                             keyboardType: TextInputType.emailAddress,
                             validate: (String? value) {
                               if (value!.isEmpty) {
-                                return 'please enter your email address';
+                                return '${getLang(context, "Enter_Email")}';
                               }
                             },
                             prefix: Icons.email_outlined,
@@ -54,11 +59,12 @@ class LoginScreen extends StatelessWidget {
                             height: 18,
                           ),
                           defaultFormField(
+                            width: 286.0,
                             controller: passController,
                             keyboardType: TextInputType.visiblePassword,
                             validate: (String? value) {
                               if (value!.isEmpty) {
-                                return 'password is too short';
+                                return '${getLang(context, "Password_Short")}';
                               }
                             },
                             label: '${getLang(context, "Password")}',

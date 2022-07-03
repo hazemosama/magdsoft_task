@@ -9,5 +9,7 @@
   "Confirm password":"تاكيد الرقم السري",
   "lang":"English",
   "Logout":"تسجيل الخروج",
-  "User Data": "بيانات المستخدم"
+  "User Data": "بيانات المستخدم",
+  "Enter_Email": "برجاء إدخال بريدك الالكتروني",
+  "Password_Short": "برجاء إدخال كلمة المرور"
 }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:magdsoft_task/data/local/cache_helper.dart';
 
 class AppLocale {
   late Locale locale;
@@ -49,4 +50,19 @@ class _AppLocalDelegate extends LocalizationsDelegate<AppLocale> {
 
 getLang(BuildContext context, String key) {
   return AppLocale.of(context).getTranslated(key);
+}
+
+localeResolutionCallback() {
+  return (currentLang, supportLang) {
+    if (currentLang != null) {
+      for (Locale locale in supportLang) {
+        if (locale.languageCode == currentLang.languageCode) {
+          CacheHelper.saveData(
+              key: "lang", value: currentLang.languageCode);
+          return currentLang;
+        }
+      }
+    }
+    return supportLang.first;
+  };
 }

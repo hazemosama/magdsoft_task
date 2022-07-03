@@ -7,9 +7,9 @@ import 'package:magdsoft_task/business_logic/global_cubit/global_cubit.dart';
 import 'package:magdsoft_task/business_logic/global_cubit/global_states.dart';
 import 'package:magdsoft_task/data/remote/dio_helper.dart';
 import 'package:magdsoft_task/localization/applocale.dart';
-
 import 'package:magdsoft_task/data/local/cache_helper.dart';
 import 'package:magdsoft_task/presentation/screens/authentication/login_screen.dart';
+import 'package:magdsoft_task/presentation/styles/themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +19,7 @@ void main() async {
   bool? isEnglish = CacheHelper.getData(key: 'isEnglish');
 
   BlocOverrides.runZoned(
-        () {
+    () {
       runApp(
         MyApp(isEnglish),
       );
@@ -36,47 +36,37 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => AuthCubit()),
-          BlocProvider(
-              create: (context) => GlobalCubit()
-                ..changeAppLang(
-                  fromShared: isEnglish,
-                )),
-        ],
-        child: BlocConsumer<GlobalCubit, GlobalStates>(
-            builder: (context, state) {
-              return MaterialApp(
-                localizationsDelegates: const [
-                  AppLocale.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                supportedLocales: const [
-                  Locale('en'), // English, no country code
-                  Locale('ar'), // Arabic, no country code
-                ],
-                locale: GlobalCubit.get(context).isEnglish! ? const Locale('ar') : const Locale('en'),
-                localeResolutionCallback: (currentLang, supportLang) {
-                  if (currentLang != null) {
-                    for (Locale locale in supportLang) {
-                      if (locale.languageCode == currentLang.languageCode) {
-                        CacheHelper.saveData(
-                            key: "lang", value: currentLang.languageCode);
-                        return currentLang;
-                      }
-                    }
-                  }
-                  return supportLang.first;
-                },
-                theme: ThemeData(
-                  primarySwatch: Colors.grey,
-                ),
-                debugShowCheckedModeBanner: false,
-                home: LoginScreen(),
-              );
-            },
-            listener: (context, state) {}));
+      providers: [
+        BlocProvider(create: (context) => AuthCubit()),
+        BlocProvider(
+            create: (context) => GlobalCubit()
+              ..changeAppLang(
+                fromShared: isEnglish,
+              )),
+      ],
+      child: BlocConsumer<GlobalCubit, GlobalStates>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return MaterialApp(
+            localizationsDelegates: const [
+              AppLocale.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en'), // English, no country code
+              Locale('ar'), // Arabic, no country code
+            ],
+            locale: GlobalCubit.get(context).isEnglish!
+                ? const Locale('ar')
+                : const Locale('en'),
+            theme: appTheme,
+            debugShowCheckedModeBanner: false,
+            home: LoginScreen(),
+          );
+        },
+      ),
+    );
   }
 }

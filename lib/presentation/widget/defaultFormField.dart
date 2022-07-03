@@ -14,11 +14,14 @@ Widget defaultFormField({
   IconData? suffix,
   VoidCallback? suffixPressed,
   bool isClickable = true,
+  double? width,
+  double? height,
 }) =>
     Container(
-      width: 350,
+      width: width ?? 350,
+      height: height ?? 55.0,
       decoration: BoxDecoration(
-        color: const Color(0xffececec),
+        color: AppColors.grey3,
         borderRadius: BorderRadius.circular(
           10,
         ),
@@ -35,19 +38,23 @@ Widget defaultFormField({
         validator: validate,
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: const TextStyle(fontSize: 17),
-          // prefixIcon: Icon(
-          //   prefix,
-          // ),
+          labelStyle: const TextStyle(
+            fontSize: 17,
+          ),
           suffixIcon: suffix != null
               ? IconButton(
-            onPressed: suffixPressed,
-            icon: Icon(
-              suffix,
-            ),
-          )
+                  onPressed: suffixPressed,
+                  icon: Icon(
+                    suffix,
+                  ),
+                )
               : null,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(
+              10.0,
+            ),
+
+          ),
         ),
       ),
     );

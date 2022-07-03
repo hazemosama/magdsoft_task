@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 Widget defaultButton({
-  double? width = 152,
-  double? height = 61,
+  double? width,
+  double? height,
   Color? background,
   bool? isUpperCase = true,
   required VoidCallback? function,
@@ -11,8 +11,8 @@ Widget defaultButton({
   double? fontSize = 20,
 }) =>
     SizedBox(
-      width: width,
-      height: height,
+      width: width ?? 152,
+      height: height ?? 55,
       child: Material(
         shape:
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
